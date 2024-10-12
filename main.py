@@ -7,7 +7,7 @@ retriever = bm25s.BM25.load("index", load_corpus=True)
 
 app = FastAPI()
 
-@app.get("/query")
+@app.get("/bm25/query")
 async def query(q: str, k : int = 10):
     query_tokens = bm25s.tokenize(q, stemmer=stemmer)
     results = retriever.retrieve(query_tokens, k=k)
@@ -17,7 +17,7 @@ async def query(q: str, k : int = 10):
     }, results.documents[0], results.scores[0]))
     return formatted_results
 
-@app.post("/index", status_code=201)
+@app.post("/bm25/index", status_code=201)
 async def index(add_corpus: list[str]):
     old_corpus = [item['text'] for item in retriever.corpus]
     new_corpus = list(old_corpus) + add_corpus
