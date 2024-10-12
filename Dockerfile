@@ -3,8 +3,8 @@ WORKDIR /app
 COPY requirements.txt .
 COPY main.py .
 RUN set -ex \
-    && addgroup --system --gid 1001 appgroup \
-    && adduser --system --uid 1001 --gid 1001 --no-create-home appuser \
+    && addgroup --system --gid 1000 appgroup \
+    && adduser --system --uid 1000 --gid 1000 --no-create-home appuser \
     && apt-get update \
     && apt-get upgrade -y \
     && pip install -r requirements.txt \
